@@ -1,0 +1,17 @@
+.vscode/**
+.vscode-test/**
+src/**
+.gitignore
+tsconfig.json
+vsc-extension-quickstart.md
+**/tsconfig.json
+node_modules/**
+*.map
+*.log
+*.ps1
+INSTALL.md
+QUICK_INSTALL.md
+build.sh
+README.md
+../**
+../../**

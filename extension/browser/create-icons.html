@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>创建扩展图标</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .instructions {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>创建 Prompt Recorder 扩展图标</h1>
+    
+    <div class="instructions">
+        <h3>说明：</h3>
+        <p>1. 点击下面的按钮生成图标</p>
+        <p>2. 右键点击每个画布，选择"图片另存为"</p>
+        <p>3. 保存为对应的文件名：icon16.png, icon48.png, icon128.png</p>
+        <p>4. 将文件保存到 extension/browser/icons/ 目录</p>
+    </div>
+
+    <div>
+        <h3>16x16 图标</h3>
+        <canvas id="icon16" width="16" height="16"></canvas>
+        <button onclick="downloadIcon('icon16', 16)">下载 icon16.png</button>
+    </div>
+
+    <div>
+        <h3>48x48 图标</h3>
+        <canvas id="icon48" width="48" height="48"></canvas>
+        <button onclick="downloadIcon('icon48', 48)">下载 icon48.png</button>
+    </div>
+
+    <div>
+        <h3>128x128 图标</h3>
+        <canvas id="icon128" width="128" height="128"></canvas>
+        <button onclick="downloadIcon('icon128', 128)">下载 icon128.png</button>
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // 清空画布
+            ctx.clearRect(0, 0, size, size);
+            
+            // 绘制背景（蓝色渐变）
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#4A90E2');
+            gradient.addColorStop(1, '#357ABD');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // 绘制圆角矩形
+            const padding = size * 0.15;
+            const rectSize = size - padding * 2;
+            const radius = size * 0.1;
+            
+            ctx.beginPath();
+            ctx.moveTo(padding + radius, padding);
+            ctx.lineTo(padding + rectSize - radius, padding);
+            ctx.quadraticCurveTo(padding + rectSize, padding, padding + rectSize, padding + radius);
+            ctx.lineTo(padding + rectSize, padding + rectSize - radius);
+            ctx.quadraticCurveTo(padding + rectSize, padding + rectSize, padding + rectSize - radius, padding + rectSize);
+            ctx.lineTo(padding + radius, padding + rectSize);
+            ctx.quadraticCurveTo(padding, padding + rectSize, padding, padding + rectSize - radius);
+            ctx.lineTo(padding, padding + radius);
+            ctx.quadraticCurveTo(padding, padding, padding + radius, padding);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fill();
+            
+            // 绘制文字 "PR" (Prompt Recorder)
+            ctx.fillStyle = '#4A90E2';
+            ctx.font = `bold ${size * 0.4}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('PR', size / 2, size / 2);
+        }
+
+        function downloadIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = `icon${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // 初始化所有图标
+        window.onload = function() {
+            drawIcon(document.getElementById('icon16'), 16);
+            drawIcon(document.getElementById('icon48'), 48);
+            drawIcon(document.getElementById('icon128'), 128);
+        };
+    </script>
+</body>
+</html>

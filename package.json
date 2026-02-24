@@ -1,0 +1,29 @@
+{
+  "name": "prompt-recorder",
+  "version": "1.0.0",
+  "description": "Record all prompts sent to AI or instructions issued to agents",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "extension/browser",
+    "extension/editor"
+  ],
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build --workspaces",
+    "build:browser": "cd extension/browser && npm run build",
+    "build:editor": "cd extension/editor && npm run compile",
+    "install:all": "npm install --workspaces",
+    "setup": "npm run install:all && npm run build:browser && npm run build:editor"
+  },
+  "keywords": [
+    "prompt",
+    "recorder",
+    "ai",
+    "chat"
+  ],
+  "author": "wasjer",
+  "license": "MIT"
+}

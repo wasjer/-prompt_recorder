@@ -1,0 +1,62 @@
+{
+  "name": "prompt-recorder-editor",
+  "displayName": "Prompt Recorder",
+  "description": "Record all prompts sent to AI in Cursor/VSCode",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/prompt-recorder"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "promptRecorder.recordPrompt",
+        "title": "Record Prompt",
+        "category": "Prompt Recorder"
+      },
+      {
+        "command": "promptRecorder.openDashboard",
+        "title": "Open Dashboard",
+        "category": "Prompt Recorder"
+      }
+    ],
+    "configuration": {
+      "title": "Prompt Recorder",
+      "properties": {
+        "promptRecorder.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:3001/api/prompts",
+          "description": "Backend API URL"
+        },
+        "promptRecorder.autoRecord": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically record prompts sent to AI"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.3.3"
+  }
+}

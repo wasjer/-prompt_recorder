@@ -1,0 +1,16 @@
+{
+  "name": "prompt-recorder-browser",
+  "version": "1.0.0",
+  "description": "Browser extension to record AI prompts",
+  "scripts": {
+    "build": "npm run build:ts && npm run bundle",
+    "build:ts": "tsc",
+    "bundle": "node bundle.js",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chrome": "^0.0.251",
+    "typescript": "^5.3.3"
+  }
+}

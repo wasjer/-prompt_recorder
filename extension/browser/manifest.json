@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Recorder",
+  "version": "1.0.0",
+  "description": "Record all prompts sent to AI platforms",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "http://localhost:3001/*",
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://*.claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://www.perplexity.ai/*",
+    "https://tongyi.aliyun.com/*",
+    "https://*.tongyi.aliyun.com/*",
+    "https://qianwen.aliyun.com/*",
+    "https://www.doubao.com/*",
+    "https://*.doubao.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://chat.openai.com/*",
+        "*://chatgpt.com/*",
+        "*://claude.ai/*",
+        "*://*.claude.ai/*",
+        "*://gemini.google.com/*",
+        "*://www.perplexity.ai/*",
+        "*://tongyi.aliyun.com/*",
+        "*://*.tongyi.aliyun.com/*",
+        "*://qianwen.aliyun.com/*",
+        "*://www.doubao.com/*",
+        "*://*.doubao.com/*"
+      ],
+      "js": ["dist/content.bundle.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "background": {
+    "service_worker": "dist/background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
