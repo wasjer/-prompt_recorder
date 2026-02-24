@@ -17,8 +17,8 @@ if (-not $isAdmin) {
     exit 1
 }
 
-# Get project path
-$projectPath = $PSScriptRoot
+# Get project path (script is in scripts/ directory)
+$projectPath = Split-Path $PSScriptRoot -Parent
 $backendPath = Join-Path $projectPath "backend"
 $frontendPath = Join-Path $projectPath "frontend"
 
@@ -64,9 +64,9 @@ Write-Host "Node.js path: $nodePath" -ForegroundColor Green
 Write-Host ""
 
 # Check if start-all.ps1 exists
-$startAllScript = Join-Path $projectPath "start-all.ps1"
+$startAllScript = Join-Path $projectPath "scripts\start-all.ps1"
 if (-not (Test-Path $startAllScript)) {
-    Write-Host "Error: Cannot find start-all.ps1. Please ensure it exists." -ForegroundColor Red
+    Write-Host "Error: Cannot find scripts\start-all.ps1. Please ensure it exists." -ForegroundColor Red
     pause
     exit 1
 }
@@ -75,7 +75,7 @@ if (-not (Test-Path $startAllScript)) {
 $vbsScript = Join-Path $projectPath "start-all-hidden.vbs"
 $vbsContent = @"
 Set WshShell = CreateObject("WScript.Shell")
-WshShell.Run "powershell.exe -ExecutionPolicy Bypass -File ""$startAllScript""", 0, False
+WshShell.Run "powershell.exe -ExecutionPolicy Bypass -File ""$($startAllScript.Replace('\', '\\'))""", 0, False
 Set WshShell = Nothing
 "@
 
@@ -135,7 +135,7 @@ Write-Host ""
 Write-Host "Tips:" -ForegroundColor Yellow
 Write-Host "1. Service will auto-start on next login" -ForegroundColor White
 Write-Host "2. Access the application at: http://localhost:3001" -ForegroundColor White
-Write-Host "3. To test immediately, run: .\start-all.ps1" -ForegroundColor White
+Write-Host "3. To test immediately, run: .\scripts\start-all.ps1" -ForegroundColor White
 Write-Host "4. To disable auto-start, run: Unregister-ScheduledTask -TaskName '$taskName' -Confirm:`$false" -ForegroundColor White
 Write-Host "5. To check task status, run: Get-ScheduledTask -TaskName '$taskName'" -ForegroundColor White
 Write-Host ""

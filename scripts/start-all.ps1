@@ -4,8 +4,8 @@
 
 $ErrorActionPreference = "Stop"
 
-# Get project paths
-$projectPath = $PSScriptRoot
+# Get project paths (script is in scripts/ directory)
+$projectPath = Split-Path $PSScriptRoot -Parent
 $backendPath = Join-Path $projectPath "backend"
 $frontendPath = Join-Path $projectPath "frontend"
 
